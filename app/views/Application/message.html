@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+#{ifErrors}
+   <h1>Oops…</h1>
+   ${username}
+#{/ifErrors}
+ 
+#{form @Application.hello()}
+   <div>
+      Name: <input type="text" name="user.username" value="${flash.username}" />
+      <span class="error">#{error 'user.username' /}</span>
+   </div>
+   <div>
+      Age: <input type="text" name="user.password" value="${flash.password}" /> 
+      <span class="error">#{error 'user.password' /}</span>
+   </div>
+   <div>
+      <input type="submit" value="Say hello" /> 
+   </div>
+#{/form}
+</body>
+</html>
