@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mongo.GGMongoIndexs;
+import mongo.GGMongoOperator;
 import mongo.MongoUtil;
 import net.sf.json.JSONObject;
 
@@ -16,7 +16,10 @@ import play.mvc.Controller;
 import utils.SignHelper;
 
 import com.google.gson.JsonElement;
+import com.mongodb.DBObject;
+import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 
 public class Application extends Controller {
 
@@ -37,7 +40,14 @@ public class Application extends Controller {
     	MongoCollection<Document> collection = MongoUtil.getGGUserCollection("a_product_line");
 //    	String result = MongoUtil.createGGIndexBackGround(collection, doc);
 //    	MongoUtil.dropGGIndex(collection, doc);
-    	List<JSONObject> list = MongoUtil.listGGIndexes(collection);
+    	
+    	DistinctIterable<Integer> it = GGMongoOperator.distinct(collection, doc, "product_code", Integer.class);
+    	MongoCursor<Integer> cursor = it.iterator();
+    	while(cursor.hasNext()){
+    		System.out.println(cursor.next());
+    	}
+    	cursor.close();
+    	List<JSONObject> list = GGMongoOperator.listIndexs(collection);
         renderJSON(list);
     }
 
