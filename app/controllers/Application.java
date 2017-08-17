@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,11 @@ import utils.SignHelper;
 import com.google.gson.JsonElement;
 import com.mongodb.DBObject;
 import com.mongodb.client.DistinctIterable;
+import com.mongodb.client.ListCollectionsIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoIterable;
+import com.mongodb.client.model.CountOptions;
 
 public class Application extends Controller {
 
@@ -36,19 +40,17 @@ public class Application extends Controller {
     	
     	
     	Document doc = new Document();
-    	doc.append("product_code", 1);
+    	doc.append("product_code", new Document("$in", Arrays.asList(18,19)));
     	MongoCollection<Document> collection = MongoUtil.getGGUserCollection("a_product_line");
-//    	String result = MongoUtil.createGGIndexBackGround(collection, doc);
-//    	MongoUtil.dropGGIndex(collection, doc);
-    	
-    	DistinctIterable<Integer> it = GGMongoOperator.distinct(collection, doc, "product_code", Integer.class);
-    	MongoCursor<Integer> cursor = it.iterator();
+    	ListCollectionsIterable<Document> it = MongoUtil.listCollections();
+    	MongoCursor<Document> cursor = it.iterator();
     	while(cursor.hasNext()){
-    		System.out.println(cursor.next());
+    		Document o = cursor.next();
+    		System.out.println(o);
+    		System.out.println(o.getString("key"));
     	}
     	cursor.close();
-    	List<JSONObject> list = GGMongoOperator.listIndexs(collection);
-        renderJSON(list);
+        renderJSON("21");
     }
 
  

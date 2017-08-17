@@ -10,9 +10,12 @@ import org.bson.Document;
 import utils.GGLogger;
 
 import com.mongodb.client.DistinctIterable;
+import com.mongodb.client.ListCollectionsIterable;
 import com.mongodb.client.ListIndexesIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoIterable;
+import com.mongodb.client.model.CountOptions;
 import com.mongodb.client.model.IndexModel;
 import com.mongodb.client.model.IndexOptions;
 /**
@@ -119,5 +122,32 @@ public class GGMongoOperator {
 	 */
 	public static <T> DistinctIterable<T> distinct(MongoCollection<Document> collection, Document query, String fieldName, Class<T> classType){
 		return collection.distinct(fieldName, query, classType);
+	}
+	/**
+	 * 
+	 * @Description:计算集合中的文档数
+	 * @author yaomy
+	 * @date 2017年8月17日 下午7:39:56
+	 */
+	public static long count(MongoCollection<Document> collection){
+		return collection.count();
+	}
+	/**
+	 * 
+	 * @Description:根据指定的过滤器查询符合条件的文档数
+	 * @author yaomy
+	 * @date 2017年8月17日 下午7:41:08
+	 */
+	public static long count(MongoCollection<Document> collection, Document query){
+		return collection.count(query);
+	}
+	/**
+	 * 
+	 * @Description:根据指定的过滤器和计数选项查询符合条件的文档数
+	 * @author yaomy
+	 * @date 2017年8月17日 下午7:47:08
+	 */
+	public static long count(MongoCollection<Document> collection, Document query, CountOptions options){
+		return collection.count(query, options);
 	}
 }
