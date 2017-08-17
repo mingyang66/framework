@@ -7,6 +7,8 @@ import net.sf.json.JSONObject;
 
 import org.bson.Document;
 
+import utils.GGLogger;
+
 import com.mongodb.client.ListIndexesIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -27,10 +29,18 @@ public class GGMongoIndexs {
 		return collection.createIndexes(indexes);
 	}
 	public static void dropIndex(MongoCollection<Document> collection, Document indexes){
-		collection.dropIndex(indexes);
+		try{
+			collection.dropIndex(indexes);
+		}catch(RuntimeException e){
+			GGLogger.error("删除索引异常");
+		}
 	}
 	public static void dropIndexAll(MongoCollection<Document> collection){
-		collection.dropIndexes();
+		try{
+			collection.dropIndexes();
+		}catch(RuntimeException e){
+			GGLogger.error("删除索引异常");
+		}
 	}
 	public static List<JSONObject> listIndexs(MongoCollection<Document> collection){
 		
