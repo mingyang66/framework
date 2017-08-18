@@ -2,12 +2,10 @@ package controllers;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import mongo.GGMongoOperator;
+import mongo.DBCollection;
 import mongo.MongoUtil;
-import net.sf.json.JSONObject;
 
 import org.bson.Document;
 
@@ -17,13 +15,9 @@ import play.mvc.Controller;
 import utils.SignHelper;
 
 import com.google.gson.JsonElement;
-import com.mongodb.DBObject;
-import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.ListCollectionsIterable;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoIterable;
-import com.mongodb.client.model.CountOptions;
 
 public class Application extends Controller {
 
@@ -41,13 +35,12 @@ public class Application extends Controller {
     	
     	Document doc = new Document();
     	doc.append("product_code", new Document("$in", Arrays.asList(18,19)));
-    	MongoCollection<Document> collection = MongoUtil.getGGUserCollection("a_product_line");
-    	ListCollectionsIterable<Document> it = MongoUtil.listCollections();
-    	MongoCursor<Document> cursor = it.iterator();
+    	DBCollection collection = MongoUtil.getGGUserCollection("a_product_line");
+    	MongoIterable<String> names = collection.listCollectionNames();
+    	MongoCursor<String> cursor = names.iterator();
     	while(cursor.hasNext()){
-    		Document o = cursor.next();
-    		System.out.println(o);
-    		System.out.println(o.getString("key"));
+    		String name = cursor.next();
+    		System.out.println(name);
     	}
     	cursor.close();
         renderJSON("21");
