@@ -12,6 +12,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 
 import ggframework.yaomy.mongo.DBCollection;
+import ggframework.yaomy.mongo.DBCursor;
 import ggframework.yaomy.mongo.GGMongoClientPool;
 import ggframework.yaomy.mongo.GGMongoClients;
 import utils.GGConfigurer;
@@ -38,8 +39,7 @@ public class SynchTreasureFromIndexToStock {
 		Document query = new Document();
 		query.append("seek_mark", new Document("$ne", null));
 		
-		FindIterable<Document> docs = collection.find(query).limit(108);
-		MongoCursor<Document> cursor = docs.iterator();
+		DBCursor cursor = collection.find(query).limit(108);
 		Set<Long> listIds = new HashSet<Long>();
 		while(cursor.hasNext()){
 			Document doc = cursor.next();
@@ -52,8 +52,7 @@ public class SynchTreasureFromIndexToStock {
 		query = new Document();
 		query.append("list_id", new Document("$in", listIds));
 		
-		FindIterable<Document> docsY = collectionY.find(query);
-		MongoCursor<Document> cursorY = docsY.iterator();
+		DBCursor cursorY = collectionY.find(query);
 		Map<Long, String> map = new HashMap<Long, String>();
 		while(cursorY.hasNext()){
 			Document docY = cursorY.next();

@@ -50,7 +50,7 @@ public class DBCollection{
 	}
 
 	public MongoCollection<Document> getCollection() {
-		return collection;
+		return this.collection;
 	}
 
 	public void setCollection(MongoCollection<Document> collection) {
@@ -119,8 +119,8 @@ public class DBCollection{
 	 * @author yaomy
 	 * @date 2017年8月18日 上午10:53:36
 	 */
-	public FindIterable<Document> findAll(){
-		return collection.find();
+	public FindIterable<Document> find(){
+		return this.collection.find();
 	}
 	/**
 	 * 
@@ -128,8 +128,9 @@ public class DBCollection{
 	 * @author yaomy
 	 * @date 2017年8月18日 上午10:52:34
 	 */
-	public FindIterable<Document> find(Document query){
-		return collection.find(query);
+	public DBCursor find(Document query){
+		FindIterable<Document> it = this.collection.find(query);
+		return new DBCursor(this.collection, query, it);
 	}
 	/**
 	 * 
@@ -139,7 +140,7 @@ public class DBCollection{
 	 */
 	public List<JSONObject> listIndexs(MongoCollection<Document> collection){
 		
-		ListIndexesIterable<Document> list = collection.listIndexes();
+		ListIndexesIterable<Document> list = this.collection.listIndexes();
 		MongoCursor<Document> cursor = list.iterator();
 		List<JSONObject> indexs = new ArrayList<JSONObject>();
 		while(cursor.hasNext()){
@@ -158,7 +159,7 @@ public class DBCollection{
 	 * @date 2017年8月17日 下午7:28:37
 	 */
 	public <T> DistinctIterable<T> distinct(String fieldName, Class<T> classType){
-		return collection.distinct(fieldName, classType);
+		return this.collection.distinct(fieldName, classType);
 	}
 	/**
 	 * 
@@ -167,7 +168,7 @@ public class DBCollection{
 	 * @date 2017年8月17日 下午5:38:28
 	 */
 	public <T> DistinctIterable<T> distinct(Document query, String fieldName, Class<T> classType){
-		return collection.distinct(fieldName, query, classType);
+		return this.collection.distinct(fieldName, query, classType);
 	}
 	/**
 	 * 
@@ -176,7 +177,7 @@ public class DBCollection{
 	 * @date 2017年8月17日 下午7:39:56
 	 */
 	public long count(MongoCollection<Document> collection){
-		return collection.count();
+		return this.collection.count();
 	}
 	/**
 	 * 
@@ -185,7 +186,7 @@ public class DBCollection{
 	 * @date 2017年8月17日 下午7:41:08
 	 */
 	public long count(Document query){
-		return collection.count(query);
+		return this.collection.count(query);
 	}
 	/**
 	 * 
@@ -194,7 +195,7 @@ public class DBCollection{
 	 * @date 2017年8月17日 下午7:47:08
 	 */
 	public long count(Document query, CountOptions options){
-		return collection.count(query, options);
+		return this.collection.count(query, options);
 	}
 
 	/**
