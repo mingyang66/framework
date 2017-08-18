@@ -119,8 +119,8 @@ public class DBCollection{
 	 * @author yaomy
 	 * @date 2017年8月18日 上午10:53:36
 	 */
-	public FindIterable<Document> find(){
-		return this.collection.find();
+	public DBCursor find(){
+		return find(null);
 	}
 	/**
 	 * 
@@ -129,7 +129,12 @@ public class DBCollection{
 	 * @date 2017年8月18日 上午10:52:34
 	 */
 	public DBCursor find(Document query){
-		FindIterable<Document> it = this.collection.find(query);
+		FindIterable<Document> it = null;
+		if(query == null){
+			it = this.collection.find();
+		} else {
+			it = this.collection.find(query);
+		}
 		return new DBCursor(this.collection, query, it);
 	}
 	/**
