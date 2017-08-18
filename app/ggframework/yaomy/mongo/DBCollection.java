@@ -120,20 +120,26 @@ public class DBCollection{
 	 * @date 2017年8月18日 上午10:53:36
 	 */
 	public DBCursor find(){
-		return find(null);
+		return find(null, null);
+	}
+	public DBCursor find(Document query){
+		return find(query, null);
 	}
 	/**
 	 * 
-	 * @Description:根据条件查询文档集合
+	 * @Description:根据条件查询文档集合并且通过过滤器来过滤掉要显示的字段
 	 * @author yaomy
 	 * @date 2017年8月18日 上午10:52:34
 	 */
-	public DBCursor find(Document query){
+	public DBCursor find(Document query, Document keys){
 		FindIterable<Document> it = null;
 		if(query == null){
 			it = this.collection.find();
 		} else {
 			it = this.collection.find(query);
+		}
+		if(keys != null && !keys.isEmpty()){
+			it.projection(keys);
 		}
 		return new DBCursor(this.collection, query, it);
 	}

@@ -33,34 +33,36 @@ public class SynchTreasureFromIndexToStock {
 		GGConfigurer.load("conf/application.conf");
 		GGMongoClientPool.pool.initPool(GGMongoClients.getClients());
 		
-		DBCollection collectionY = MongoUtil.getGGIndexCollection("personal_radar_stock_list");
+//		DBCollection collectionY = MongoUtil.getGGIndexCollection("personal_radar_stock_list");
 		DBCollection collection = MongoUtil.getGGStockCollection("t_app_seek_treasure_01");
 		
 		Document query = new Document();
 		query.append("seek_mark", new Document("$ne", null));
 		
-		DBCursor cursor = collection.find(query).limit(108);
-		Set<Long> listIds = new HashSet<Long>();
+		Document fields = new Document();
+		fields.append("stock_code", 1);
+		fields.append("sname", 1);
+		fields.append("radar_count", 1);
+		fields.append("list_id", 1);
+		DBCursor cursor = collection.find(query, fields).limit(10);
 		while(cursor.hasNext()){
 			Document doc = cursor.next();
-			System.out.println(doc.getInteger("list_id"));
-			listIds.add(doc.getInteger("list_id").longValue());
+			System.out.println(doc.toJson());
 		}
 		cursor.close();
-		System.out.println(listIds.size());
 		
-		query = new Document();
-		query.append("list_id", new Document("$in", listIds));
-		
-		DBCursor cursorY = collectionY.find(query);
-		Map<Long, String> map = new HashMap<Long, String>();
-		while(cursorY.hasNext()){
-			Document docY = cursorY.next();
-			map.put(docY.getLong("list_id"), docY.getString("radar_code"));
-			System.out.println("=======");
-			System.out.println(docY);
-		}
-		cursorY.close();
-		System.out.println(map.size()+"=====================////////////////////////");
+//		query = new Document();
+//		query.append("list_id", new Document("$in", listIds));
+//		
+//		DBCursor cursorY = collectionY.find(query);
+//		Map<Long, String> map = new HashMap<Long, String>();
+//		while(cursorY.hasNext()){
+//			Document docY = cursorY.next();
+//			map.put(docY.getLong("list_id"), docY.getString("radar_code"));
+//			System.out.println("=======");
+//			System.out.println(docY);
+//		}
+//		cursorY.close();
+//		System.out.println(map.size()+"=====================////////////////////////");
 	}
 }
