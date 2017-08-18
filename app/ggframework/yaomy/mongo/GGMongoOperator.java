@@ -1,4 +1,4 @@
-package mongo;
+package ggframework.yaomy.mongo;
 
 import org.bson.Document;
 
@@ -29,7 +29,10 @@ public class GGMongoOperator {
 	 */
 	public static MongoDatabase getDB(String dbName){
 		MongoClient client = GGMongoClientPool.pool.getMongoClient(dbName);
-		return client.getDatabase(GGConfigurer.get("ggmongodb."+dbName+".name"));
+		if(GGConfigurer.get("ggmongodb."+dbName+".name") != null){
+			return client.getDatabase(GGConfigurer.get("ggmongodb."+dbName+".name"));
+		}
+		return null;
 	}
 	/**
 	 * 

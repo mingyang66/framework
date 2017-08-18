@@ -1,5 +1,5 @@
 
-package mongo;
+package ggframework.yaomy.mongo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import org.bson.Document;
 import utils.GGLogger;
 
 import com.mongodb.client.DistinctIterable;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.ListCollectionsIterable;
 import com.mongodb.client.ListIndexesIterable;
 import com.mongodb.client.MongoCollection;
@@ -105,7 +106,7 @@ public class DBCollection{
 	 * @author yaomy
 	 * @date 2017年8月17日 下午7:29:31
 	 */
-	public static void dropIndexAll(MongoCollection<Document> collection){
+	public void dropIndexAll(MongoCollection<Document> collection){
 		try{
 			collection.dropIndexes();
 		}catch(RuntimeException e){
@@ -114,11 +115,29 @@ public class DBCollection{
 	}
 	/**
 	 * 
+	 * @Description:查询所有的文档集合
+	 * @author yaomy
+	 * @date 2017年8月18日 上午10:53:36
+	 */
+	public FindIterable<Document> findAll(){
+		return collection.find();
+	}
+	/**
+	 * 
+	 * @Description:根据条件查询文档集合
+	 * @author yaomy
+	 * @date 2017年8月18日 上午10:52:34
+	 */
+	public FindIterable<Document> find(Document query){
+		return collection.find(query);
+	}
+	/**
+	 * 
 	 * @Description:获取指定集合的所有索引
 	 * @author yaomy
 	 * @date 2017年8月17日 下午7:29:01
 	 */
-	public static List<JSONObject> listIndexs(MongoCollection<Document> collection){
+	public List<JSONObject> listIndexs(MongoCollection<Document> collection){
 		
 		ListIndexesIterable<Document> list = collection.listIndexes();
 		MongoCursor<Document> cursor = list.iterator();

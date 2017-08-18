@@ -1,4 +1,4 @@
-package mongo;
+package ggframework.yaomy.mongo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +38,6 @@ public class GGMongoClients {
 	       }
 		}
 		
-		if(dbs.isEmpty()) return clients;
 		
 		Map<String, List<ServerAddress>> addressLists = new HashMap<String, List<ServerAddress>>();
 	    for (String db : dbs) {
@@ -57,17 +56,21 @@ public class GGMongoClients {
 	       }
 	     }
 	    
-	    if(dbs.isEmpty()) return clients;
-	    
-	     List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
 	     Map<String, List<MongoCredential>> credentialsLists = new HashMap<String, List<MongoCredential>>();
 	     Set confs = GGConfigurer.keySet();
 	     for (Iterator it = confs.iterator(); it.hasNext(); ) { 
 	    	 Object k = it.next();
+	    	 List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
 	         if ((k.toString().startsWith("ggmongodb.")) && (k.toString().endsWith(".name"))) {
 	         String db = k.toString().split("\\.")[1];
-	 
-	         credentialsList.add(MongoCredential.createScramSha1Credential(GGConfigurer.get("ggmongodb." + db + ".username"), GGConfigurer.get("ggmongodb." + db + ".name"), GGConfigurer.get("ggmongodb." + db + ".password").toCharArray()));
+	         String version = GGConfigurer.get("ggmongodb."+db+".version", "3");
+	         if(StringUtils.equals(version, "2")){
+	        	 //老版本2.6默认使用MONGODB_CR认证方式
+	        	 credentialsList.add(MongoCredential.createMongoCRCredential(GGConfigurer.get("ggmongodb." + db + ".username"), GGConfigurer.get("ggmongodb." + db + ".name"), GGConfigurer.get("ggmongodb." + db + ".password").toCharArray()));
+	         } else {
+	        	 //新版本默认使用SCRAM-SHA-1认证方式
+	        	 credentialsList.add(MongoCredential.createScramSha1Credential(GGConfigurer.get("ggmongodb." + db + ".username"), GGConfigurer.get("ggmongodb." + db + ".name"), GGConfigurer.get("ggmongodb." + db + ".password").toCharArray()));
+	         }
 	 
 	         credentialsLists.put(db, credentialsList);
 	       }
@@ -75,6 +78,8 @@ public class GGMongoClients {
 	    
 	     for (Iterator<String> it=addressLists.keySet().iterator(); it.hasNext();) {
 	    	 String db = it.next();
+	    	 if(credentialsLists.get(db) == null)
+	    		 continue;
 	    	 if(options == null){
 	    		 clients.put(db, new MongoClient(addressLists.get(db), credentialsLists.get(db)));
 	    	 } else {

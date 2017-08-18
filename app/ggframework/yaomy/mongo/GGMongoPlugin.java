@@ -1,4 +1,4 @@
-package mongo;
+package ggframework.yaomy.mongo;
 
 import play.PlayPlugin;
 import utils.GGConfigurer;

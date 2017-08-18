@@ -1,4 +1,4 @@
-package mongo;
+package ggframework.yaomy.mongo;
 
 import java.util.Map;
 
@@ -10,11 +10,11 @@ public enum GGMongoClientPool {
 	
 	private Map<String, MongoClient> clients = null;
 	
-	void initPool(Map<String, MongoClient> clients){
+	public void initPool(Map<String, MongoClient> clients){
 		this.clients = clients;
 	}
 	
-	void destoryPool(){
+	public void destoryPool(){
 		if(this.clients != null){
 			for(Map.Entry<String, MongoClient> client : this.clients.entrySet()){
 				client.getValue().close();
