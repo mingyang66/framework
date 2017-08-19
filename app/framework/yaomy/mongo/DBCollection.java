@@ -1,5 +1,5 @@
 
-package ggframework.yaomy.mongo;
+package framework.yaomy.mongo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import com.mongodb.client.model.CountOptions;
 import com.mongodb.client.model.IndexModel;
 import com.mongodb.client.model.IndexOptions;
 
-import ggframework.yaomy.log.GGLogger;
+import framework.yaomy.log.GGLogger;
 
 /**
  * @Description:TODO

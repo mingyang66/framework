@@ -1,4 +1,4 @@
-package ggframework.yaomy.http;
+package framework.yaomy.http;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import utils.SignHelper;
 
 import com.google.gson.JsonElement;
 
-public class HttpClient {
+public class WsClient {
 
 	private static String URL = "http://ggservice.sandbox.gofund.com.cn/";
 	private static String APPKEY = "GLrfgoNIGnAiKRp";

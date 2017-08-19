@@ -1,4 +1,4 @@
-package ggframework.yaomy.mongo;
+package framework.yaomy.mongo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 
-import ggframework.yaomy.config.GGConfigurer;
+import framework.yaomy.config.GGConfigurer;
 
 public class GGMongoClients {
 	/**

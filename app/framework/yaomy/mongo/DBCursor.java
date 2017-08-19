@@ -1,5 +1,5 @@
 
-package ggframework.yaomy.mongo;
+package framework.yaomy.mongo;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;

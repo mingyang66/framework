@@ -1,4 +1,4 @@
-package ggframework.yaomy.log;
+package framework.yaomy.log;
 
 
 import play.Logger;

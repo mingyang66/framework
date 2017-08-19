@@ -1,8 +1,5 @@
 package utils;
 
-import ggframework.yaomy.mongo.DBCollection;
-import ggframework.yaomy.mongo.GGMongoOperator;
-
 import java.util.List;
 
 import net.sf.json.JSONObject;
@@ -13,6 +10,9 @@ import com.mongodb.client.ListCollectionsIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.IndexModel;
+
+import framework.yaomy.mongo.DBCollection;
+import framework.yaomy.mongo.GGMongoOperator;
 
 public class MongoUtil {
 

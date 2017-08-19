@@ -1,7 +1,7 @@
-package ggframework.yaomy.mongo;
+package framework.yaomy.mongo;
 
-import ggframework.yaomy.config.GGConfigurer;
-import ggframework.yaomy.log.GGLogger;
+import framework.yaomy.config.GGConfigurer;
+import framework.yaomy.log.GGLogger;
 import play.PlayPlugin;
 
 public class GGMongoPlugin extends PlayPlugin{

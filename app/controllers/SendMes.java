@@ -4,7 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-import ggframework.yaomy.config.GGConfigurer;
+import framework.yaomy.config.GGConfigurer;
 
 public class SendMes {
 	  private final static String QUEUE_NAME = "hello";

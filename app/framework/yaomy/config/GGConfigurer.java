@@ -1,4 +1,4 @@
-package ggframework.yaomy.config;
+package framework.yaomy.config;
 
 import java.io.File;
 import java.io.FileInputStream;

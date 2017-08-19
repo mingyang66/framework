@@ -1,4 +1,4 @@
-package ggframework.yaomy.mongo;
+package framework.yaomy.mongo;
 
 import java.util.Map;
 

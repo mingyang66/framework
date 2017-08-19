@@ -1,4 +1,4 @@
-package ggframework.yaomy.mongo;
+package framework.yaomy.mongo;
 
 import org.bson.Document;
 
@@ -7,8 +7,8 @@ import com.mongodb.client.ListCollectionsIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
 
-import ggframework.yaomy.config.GGConfigurer;
-import ggframework.yaomy.log.GGLogger;
+import framework.yaomy.config.GGConfigurer;
+import framework.yaomy.log.GGLogger;
 /**
  * 
  * @Description:对数据库驱动封装类

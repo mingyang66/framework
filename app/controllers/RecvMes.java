@@ -10,7 +10,7 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-import ggframework.yaomy.config.GGConfigurer;
+import framework.yaomy.config.GGConfigurer;
 
 public class RecvMes {
 	 private final static String QUEUE_NAME = "hello";

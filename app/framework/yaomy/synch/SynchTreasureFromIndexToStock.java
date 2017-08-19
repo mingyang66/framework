@@ -1,5 +1,5 @@
 
-package ggframework.yaomy.synch;
+package framework.yaomy.synch;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,11 +11,11 @@ import org.bson.Document;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 
-import ggframework.yaomy.config.GGConfigurer;
-import ggframework.yaomy.mongo.DBCollection;
-import ggframework.yaomy.mongo.DBCursor;
-import ggframework.yaomy.mongo.GGMongoClientPool;
-import ggframework.yaomy.mongo.GGMongoClients;
+import framework.yaomy.config.GGConfigurer;
+import framework.yaomy.mongo.DBCollection;
+import framework.yaomy.mongo.DBCursor;
+import framework.yaomy.mongo.GGMongoClientPool;
+import framework.yaomy.mongo.GGMongoClients;
 import utils.MongoUtil;
 
 /**
