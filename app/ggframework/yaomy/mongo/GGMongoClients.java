@@ -10,13 +10,13 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
-import utils.GGConfigurer;
-
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+
+import ggframework.yaomy.config.GGConfigurer;
 
 public class GGMongoClients {
 	/**

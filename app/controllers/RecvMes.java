@@ -2,8 +2,6 @@ package controllers;
 
 import java.io.IOException;
 
-import utils.GGConfigurer;
-
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -11,6 +9,8 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
+
+import ggframework.yaomy.config.GGConfigurer;
 
 public class RecvMes {
 	 private final static String QUEUE_NAME = "hello";

@@ -11,11 +11,11 @@ import org.bson.Document;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 
+import ggframework.yaomy.config.GGConfigurer;
 import ggframework.yaomy.mongo.DBCollection;
 import ggframework.yaomy.mongo.DBCursor;
 import ggframework.yaomy.mongo.GGMongoClientPool;
 import ggframework.yaomy.mongo.GGMongoClients;
-import utils.GGConfigurer;
 import utils.MongoUtil;
 
 /**
@@ -34,7 +34,7 @@ public class SynchTreasureFromIndexToStock {
 		GGMongoClientPool.pool.initPool(GGMongoClients.getClients());
 		
 //		DBCollection collectionY = MongoUtil.getGGIndexCollection("personal_radar_stock_list");
-		DBCollection collection = MongoUtil.getGGStockCollection("t_app_seek_treasure_01");
+		DBCollection collection = MongoUtil.getGGUserCollection("t_app_seek_treasure_01");
 		
 		Document query = new Document();
 		query.append("seek_mark", new Document("$ne", null));

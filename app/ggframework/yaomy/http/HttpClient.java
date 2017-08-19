@@ -1,14 +1,15 @@
-package utils;
+package ggframework.yaomy.http;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
+import utils.SignHelper;
 
 import com.google.gson.JsonElement;
 
-public class GoGoalAPI {
+public class HttpClient {
 
 	private static String URL = "http://ggservice.sandbox.gofund.com.cn/";
 	private static String APPKEY = "GLrfgoNIGnAiKRp";
