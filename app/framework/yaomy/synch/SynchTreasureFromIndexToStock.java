@@ -1,13 +1,17 @@
 
 package framework.yaomy.synch;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.bson.Document;
 
 import framework.yaomy.config.GGConfigurer;
 import framework.yaomy.mongo.DBCollection;
-import framework.yaomy.mongo.DBCursor;
 import framework.yaomy.mongo.GGMongoClientPool;
 import framework.yaomy.mongo.GGMongoClients;
+import framework.yaomy.mongo.GGMongoOperator;
 import utils.MongoUtil;
 
 /**
@@ -25,36 +29,38 @@ public class SynchTreasureFromIndexToStock {
 		GGConfigurer.load("conf/application.conf");
 		GGMongoClientPool.pool.initPool(GGMongoClients.getClients());
 		
-//		DBCollection collectionY = MongoUtil.getGGIndexCollection("personal_radar_stock_list");
-		DBCollection collection = MongoUtil.getGGUserCollection("t_app_seek_treasure_01");
+		DBCollection collection = GGMongoOperator.getGGBusinessDBCollection("t_app_seek_treasure_01");
 		
-		Document query = new Document();
-		query.append("seek_mark", new Document("$ne", null));
+		Document setValue = GGMongoOperator.newId(collection);
+		setValue.append("seek_mark", "12");
+		setValue.append("stock_code", "600001");
+		setValue.append("sname", "12");
+		setValue.append("list_id", "12");
+		setValue.append("stock_name", "光大股份");
 		
-		Document fields = new Document();
-		fields.append("stock_code", 1);
-		fields.append("sname", 1);
-		fields.append("radar_count", 1);
-		fields.append("list_id", 1);
-		DBCursor cursor = collection.find(query, fields).limit(10);
-		while(cursor.hasNext()){
-			Document doc = cursor.next();
-			System.out.println(doc.toJson());
-		}
-		cursor.close();
+		Document setValue1 = new Document();
+		setValue1.append("seek_mark", "1222");
+		setValue1.append("stock_code", "600001");
+		setValue1.append("sname", "12");
+		setValue1.append("list_id", "12");
+		setValue1.append("stock_name", "光大股份");
+		Document setValue2 = new Document();
 		
-//		query = new Document();
-//		query.append("list_id", new Document("$in", listIds));
-//		
-//		DBCursor cursorY = collectionY.find(query);
-//		Map<Long, String> map = new HashMap<Long, String>();
-//		while(cursorY.hasNext()){
-//			Document docY = cursorY.next();
-//			map.put(docY.getLong("list_id"), docY.getString("radar_code"));
-//			System.out.println("=======");
-//			System.out.println(docY);
-//		}
-//		cursorY.close();
-//		System.out.println(map.size()+"=====================////////////////////////");
+		setValue2.append("seek_mark", "12");
+		setValue2.append("stock_code", "600001");
+		setValue2.append("sname", "12");
+		setValue2.append("list_id", "12");
+		setValue2.append("stock_name", "光大股份");
+		setValue2.append("create_date", new Date());
+		
+		collection.insertOne(setValue);
+		
+		List<Document> list = new ArrayList<Document>();
+		list.add(setValue1);
+		list.add(setValue2);
+		
+//		collection.insertMany(list, true);
+		
+
 	}
 }

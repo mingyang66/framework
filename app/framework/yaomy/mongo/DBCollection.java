@@ -17,6 +17,9 @@ import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.CountOptions;
 import com.mongodb.client.model.IndexModel;
 import com.mongodb.client.model.IndexOptions;
+import com.mongodb.client.model.InsertManyOptions;
+import com.mongodb.client.model.InsertOneOptions;
+import com.mongodb.client.result.UpdateResult;
 
 import framework.yaomy.log.GGLogger;
 import net.sf.json.JSONObject;
@@ -34,10 +37,12 @@ public class DBCollection{
 
 	 private MongoDatabase db;
 	 private MongoCollection<Document> collection = null;
+	 private String collectionName = null;
 	 
-	 DBCollection(MongoDatabase db, MongoCollection<Document> collection) {
+	 DBCollection(MongoDatabase db, MongoCollection<Document> collection, String collectionName) {
 		 this.db = db;
 		 this.collection = collection;
+		 this.collectionName = collectionName;
 	 }
 
 	public MongoDatabase getDb() {
@@ -56,6 +61,13 @@ public class DBCollection{
 		this.collection = collection;
 	}
 
+	public String getCollectionName() {
+		return collectionName;
+	}
+
+	public void setCollectionName(String collectionName) {
+		this.collectionName = collectionName;
+	}
 
 	/**
 	 * 
@@ -64,7 +76,7 @@ public class DBCollection{
 	 * @date 2017年8月17日 下午7:30:54
 	 */
 	public String createIndex(Document indexes){
-		return collection.createIndex(indexes);
+		return this.collection.createIndex(indexes);
 	}
 	/**
 	 * 
@@ -75,7 +87,7 @@ public class DBCollection{
 	public String createIndexBackGround(Document indexes){
 		IndexOptions options = new IndexOptions();
 		options.background(true);
-		return collection.createIndex(indexes, options);
+		return this.collection.createIndex(indexes, options);
 	}
 	/**
 	 * 
@@ -84,7 +96,7 @@ public class DBCollection{
 	 * @date 2017年8月17日 下午7:30:13
 	 */
 	public List<String> createIndex(List<IndexModel> indexes){
-		return collection.createIndexes(indexes);
+		return this.collection.createIndexes(indexes);
 	}
 	/**
 	 * 
@@ -94,7 +106,7 @@ public class DBCollection{
 	 */
 	public void dropIndex(Document indexes){
 		try{
-			collection.dropIndex(indexes);
+			this.collection.dropIndex(indexes);
 		}catch(RuntimeException e){
 			GGLogger.error("删除索引异常");
 		}
@@ -141,6 +153,17 @@ public class DBCollection{
 			it.projection(keys);
 		}
 		return new DBCursor(this.collection, query, it);
+	}
+	/**
+	 * 
+	 * @Description:查询一个文档并且更新
+	 * @param query 查询条件
+	 * @param update 更新的值
+	 * @author yaomingyang
+	 * @date 2017年8月19日 下午5:50:44
+	 */
+	public Document findOneAndUpdate(Document query, Document update){
+		return this.collection.findOneAndUpdate(query, update);
 	}
 	/**
 	 * 
@@ -234,5 +257,49 @@ public class DBCollection{
 	 */
 	public <T> ListCollectionsIterable<T> listCollections(Class<T> resultClass){
 		return db.listCollections(resultClass);
+	}
+	/**
+	 * 
+	 * @Description:插入单条数据
+	 * @author yaomingyang
+	 * @date 2017年8月19日 下午3:02:17
+	 */
+	public void insertOne(Document doc){
+		this.collection.insertOne(doc);
+	}
+	/**
+	 * 
+	 * @Description:插入单条数据记录并且校验是否校验当前插入的文档和数据库中文档是否一致
+	 * @author yaomingyang
+	 * @date 2017年8月19日 下午4:25:26
+	 */
+	public void insertOne(Document doc, boolean isValidate){
+		InsertOneOptions options = new InsertOneOptions();
+		options.bypassDocumentValidation(isValidate);
+		
+		this.collection.insertOne(doc, options);
+	}
+	/**
+	 * 
+	 * @Description:插入多条记录
+	 * @author yaomingyang
+	 * @date 2017年8月19日 下午4:10:33
+	 */
+	public void insertMany(List<Document> docs){
+		this.collection.insertMany(docs);
+	}
+	/**
+	 * 遗留未解决问题
+	 * @Description:插入多个文档、并且可以指定是否验证文档字段与库中的字段是否一致
+	 * @param isValidate 是指是否验证文档 
+	 * @author yaomingyang
+	 * @date 2017年8月19日 下午4:38:54
+	 */
+	public void insertMany(List<Document> docs, boolean isValidate){
+		InsertManyOptions options = new InsertManyOptions();
+		options.bypassDocumentValidation(isValidate);
+		options.ordered(isValidate);
+		
+		this.collection.insertMany(docs, options);
 	}
 }

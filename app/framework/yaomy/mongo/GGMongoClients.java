@@ -35,7 +35,9 @@ public class GGMongoClients {
 	         }
 	       }
 		}
-		
+		if(dbs.isEmpty()) {
+			dbs.add("business");
+		}
 		
 		Map<String, List<ServerAddress>> addressLists = new HashMap<String, List<ServerAddress>>();
 	    for (String db : dbs) {
@@ -58,10 +60,13 @@ public class GGMongoClients {
 	     Set confs = GGConfigurer.keySet();
 	     for (Iterator it = confs.iterator(); it.hasNext(); ) { 
 	    	 Object k = it.next();
-	    	 List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
 	         if ((k.toString().startsWith("ggmongodb.")) && (k.toString().endsWith(".name"))) {
+	        	 
+	         List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
+	         
 	         String db = k.toString().split("\\.")[1];
 	         String version = GGConfigurer.get("ggmongodb."+db+".version", "3");
+	         
 	         if(StringUtils.equals(version, "2")){
 	        	 //老版本2.6默认使用MONGODB_CR认证方式
 	        	 credentialsList.add(MongoCredential.createMongoCRCredential(GGConfigurer.get("ggmongodb." + db + ".username"), GGConfigurer.get("ggmongodb." + db + ".name"), GGConfigurer.get("ggmongodb." + db + ".password").toCharArray()));
