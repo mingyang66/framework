@@ -31,7 +31,7 @@ public class WsClient {
 	
 		String sign = getSign(APPKEY, SECURITY, timeStamp, params, url, "POST");
 		params.put("sign", sign);
-		
+		 
 		HttpResponse ws = WS.url(URL+url)
 							.setParameters(params)
 							.post();
