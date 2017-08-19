@@ -31,7 +31,7 @@ ofcupload
 */tmp
 #*/modules
 
-*/application.conf
+#*/application.conf
 
 server.pid
 
