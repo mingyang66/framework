@@ -1,15 +1,7 @@
 
 package framework.yaomy.synch;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.bson.Document;
-
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCursor;
 
 import framework.yaomy.config.GGConfigurer;
 import framework.yaomy.mongo.DBCollection;
