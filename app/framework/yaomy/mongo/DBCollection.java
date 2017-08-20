@@ -15,6 +15,8 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.CountOptions;
+import com.mongodb.client.model.FindOneAndDeleteOptions;
+import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.IndexModel;
 import com.mongodb.client.model.IndexOptions;
@@ -127,6 +129,26 @@ public class DBCollection{
 	}
 	/**
 	 * 
+	 * @Description:获取指定集合的所有索引
+	 * @author yaomy
+	 * @date 2017年8月17日 下午7:29:01
+	 */
+	public List<JSONObject> listIndexs(MongoCollection<Document> collection){
+		
+		ListIndexesIterable<Document> list = this.collection.listIndexes();
+		MongoCursor<Document> cursor = list.iterator();
+		List<JSONObject> indexs = new ArrayList<JSONObject>();
+		while(cursor.hasNext()){
+			Document o = cursor.next();
+			JSONObject json = JSONObject.fromObject(o);
+			indexs.add(json.getJSONObject("key"));
+		}
+		cursor.close();
+		
+		return indexs;
+	}
+	/**
+	 * 
 	 * @Description:查询所有的文档集合
 	 * @author yaomy
 	 * @date 2017年8月18日 上午10:53:36
@@ -179,23 +201,47 @@ public class DBCollection{
 	}
 	/**
 	 * 
-	 * @Description:获取指定集合的所有索引
-	 * @author yaomy
-	 * @date 2017年8月17日 下午7:29:01
+	 * @Description:查看对应的文档并且删除掉
+	 * @param query 查询条件
+	 * @author yaomingyang
+	 * @date 2017年8月20日 下午6:26:25
 	 */
-	public List<JSONObject> listIndexs(MongoCollection<Document> collection){
-		
-		ListIndexesIterable<Document> list = this.collection.listIndexes();
-		MongoCursor<Document> cursor = list.iterator();
-		List<JSONObject> indexs = new ArrayList<JSONObject>();
-		while(cursor.hasNext()){
-			Document o = cursor.next();
-			JSONObject json = JSONObject.fromObject(o);
-			indexs.add(json.getJSONObject("key"));
-		}
-		cursor.close();
-		
-		return indexs;
+	public Document findOneAndDelete(Document query){
+		return this.collection.findOneAndDelete(query);
+	}
+	/**
+	 * 
+	 * @Description:查看对应的文档并且删除掉
+	 * @param query 查询条件
+	 * @param options 操作条件
+	 * @author yaomingyang
+	 * @date 2017年8月20日 下午6:26:25
+	 */
+	public Document findOneAndDelete(Document query, FindOneAndDeleteOptions options){
+		return this.collection.findOneAndDelete(query, options);
+	}
+	/**
+	 * 
+	 * @Description:查看并且替换对应的文档
+	 * @param 查询条件
+	 * @param 要替换的文档
+	 * @author yaomingyang
+	 * @date 2017年8月20日 下午6:30:22
+	 */
+	public Document findOneAndReplace(Document query, Document replacement){
+		return this.collection.findOneAndReplace(query, replacement);
+	}
+	/**
+	 * 
+	 * @Description:查看并且替换对应的文档
+	 * @param 查询条件
+	 * @param 要替换的文档
+	 * @param 操作条件
+	 * @author yaomingyang
+	 * @date 2017年8月20日 下午6:30:22
+	 */
+	public Document findOneAndReplace(Document query, Document replacement, FindOneAndReplaceOptions options){
+		return this.collection.findOneAndReplace(query, replacement, options);
 	}
 	/**
 	 * 
