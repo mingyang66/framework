@@ -15,6 +15,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.CountOptions;
+import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.IndexModel;
 import com.mongodb.client.model.IndexOptions;
 import com.mongodb.client.model.InsertManyOptions;
@@ -167,6 +168,17 @@ public class DBCollection{
 	}
 	/**
 	 * 
+	 * @Description:查询一个文档并且更新
+	 * @param query 查询条件
+	 * @param update 更新的值
+	 * @author yaomingyang
+	 * @date 2017年8月20日 下午6:18:29
+	 */
+	public Document findOneAndUpdate(Document query, Document update, FindOneAndUpdateOptions options){
+		return this.collection.findOneAndUpdate(query, update, options);
+	}
+	/**
+	 * 
 	 * @Description:获取指定集合的所有索引
 	 * @author yaomy
 	 * @date 2017年8月17日 下午7:29:01
@@ -291,14 +303,10 @@ public class DBCollection{
 	/**
 	 * 遗留未解决问题
 	 * @Description:插入多个文档、并且可以指定是否验证文档字段与库中的字段是否一致
-	 * @param isValidate 是指是否验证文档 
 	 * @author yaomingyang
 	 * @date 2017年8月19日 下午4:38:54
 	 */
-	public void insertMany(List<Document> docs, boolean isValidate){
-		InsertManyOptions options = new InsertManyOptions();
-		options.bypassDocumentValidation(isValidate);
-		options.ordered(isValidate);
+	public void insertMany(List<Document> docs, InsertManyOptions options){
 		
 		this.collection.insertMany(docs, options);
 	}
