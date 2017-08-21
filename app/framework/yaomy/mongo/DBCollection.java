@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bson.Document;
 
+import com.mongodb.bulk.DeleteRequest;
 import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.ListCollectionsIterable;
@@ -15,6 +16,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.CountOptions;
+import com.mongodb.client.model.DeleteOptions;
 import com.mongodb.client.model.FindOneAndDeleteOptions;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
@@ -22,6 +24,7 @@ import com.mongodb.client.model.IndexModel;
 import com.mongodb.client.model.IndexOptions;
 import com.mongodb.client.model.InsertManyOptions;
 import com.mongodb.client.model.InsertOneOptions;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
 import framework.yaomy.log.GGLogger;
@@ -353,7 +356,45 @@ public class DBCollection{
 	 * @date 2017年8月19日 下午4:38:54
 	 */
 	public void insertMany(List<Document> docs, InsertManyOptions options){
-		
+		if(options == null){
+			options = new InsertManyOptions();
+		}
 		this.collection.insertMany(docs, options);
+	}
+	/**
+	 * 
+	 * @Description:最多删除掉一个查询到的文档
+	 * @author yaomy
+	 * @date 2017年8月21日 下午1:56:59
+	 */
+	public DeleteResult deleteOne(Document query){
+		return this.collection.deleteOne(query);
+	}
+	/**
+	 * 
+	 * @Description:最多删除掉一个查询到的文档
+	 * @author yaomy
+	 * @date 2017年8月21日 下午1:56:59
+	 */
+	public DeleteResult deleteOne(Document query, DeleteOptions options){
+		return this.collection.deleteOne(query, options);
+	}
+	/**
+	 * 
+	 * @Description:删除掉查询到的所有文档
+	 * @author yaomy
+	 * @date 2017年8月21日 下午1:59:33
+	 */
+	public DeleteResult deleteMany(Document query){
+		return this.collection.deleteMany(query);
+	}
+	/**
+	 * 
+	 * @Description:删除掉查询到的所有文档
+	 * @author yaomy
+	 * @date 2017年8月21日 下午1:59:33
+	 */
+	public DeleteResult deleteMany(Document query, DeleteOptions options){
+		return this.collection.deleteMany(query, options);
 	}
 }

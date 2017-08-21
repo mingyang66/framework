@@ -93,11 +93,11 @@ public class GGMongoOperator {
 			Document update = new Document();
 			update.append("$inc", new Document("id", 1L));
 			Document doc = newCollection.findOneAndUpdate(query, update);
-			result.append("_id", Long.valueOf(doc.getLong("id")+1));
+			result.append("_id", Long.valueOf(doc.getLong("id")+1L));
 		} else {
 			Document doc = new Document();
 			doc.append("collection_name", collection.getCollectionName());
-			doc.append("id", 1);
+			doc.append("id", 1L);
 			newCollection.insertOne(doc);
 			result.append("_id", 1L);
 		}
@@ -132,11 +132,11 @@ public class GGMongoOperator {
 			Document update = new Document();
 			update.append("$inc", new Document("id", 1L));
 			Document doc = newCollection.findOneAndUpdate(query, update);
-			result.append("_id", Long.valueOf(doc.getLong("id")+1));
+			result.append("_id", Long.valueOf(doc.getLong("id")+1L));
 		} else {
 			Document doc = new Document();
 			doc.append("collection_name", collecitonName);
-			doc.append("id", 1);
+			doc.append("id", 1L);
 			newCollection.insertOne(doc);
 			result.append("_id", 1L);
 		}
