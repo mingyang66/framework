@@ -104,4 +104,43 @@ public class GGMongoOperator {
 		cursor.close();
 		return result;
 	}
+	/**
+	 * 
+	 * @Description:新建数据库对应的主键ID
+	 * @param collecitonName 要新建ID的表
+	 * @author yaomy
+	 * @date 2017年8月21日 上午10:39:06
+	 */
+	public static Document newId(String collecitonName){
+		return newId(collecitonName, "business");
+	}
+	/**
+	 * 
+	 * @Description:新建数据库对应的主键ID
+	 * @param collecitonName 要新建ID的表
+	 * @param 数据库名称
+	 * @author yaomy
+	 * @date 2017年8月21日 上午10:37:27
+	 */
+	public static Document newId(String collecitonName, String dbName){
+		DBCollection newCollection = getDBCollection(dbName, "gg_ids");
+		Document query = new Document("collection_name", collecitonName);
+		DBCursor cursor = newCollection.find(query);
+		
+		Document result = new Document();
+		if(cursor.hasNext()) {
+			Document update = new Document();
+			update.append("$inc", new Document("id", 1L));
+			Document doc = newCollection.findOneAndUpdate(query, update);
+			result.append("_id", Long.valueOf(doc.getLong("id")+1));
+		} else {
+			Document doc = new Document();
+			doc.append("collection_name", collecitonName);
+			doc.append("id", 1);
+			newCollection.insertOne(doc);
+			result.append("_id", 1L);
+		}
+		cursor.close();
+		return result;
+	}
 }
