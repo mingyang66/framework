@@ -73,13 +73,13 @@ public class SynchTreasureFromIndexToStock {
 		setValue2.append("create_date", new Date());
 		
 		WriteResult result = collection.insertOne(setValue);
-		
+		GGLogger.info(result.getModifiedCount());
 		List<Document> list = new ArrayList<Document>();
 		list.add(setValue1);
 		list.add(setValue2);
 		
-		collection.insertMany(list, null);
-		
+		result = collection.insertMany(list, null);
+		GGLogger.info(result.getModifiedCount());
 
 	}
 }

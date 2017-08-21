@@ -361,7 +361,7 @@ public class DBCollection{
 	 * @date 2017年8月19日 下午4:10:33
 	 */
 	public WriteResult insertMany(List<Document> docs){
-		if(docs != null && docs.size() != 0) {
+		if(docs == null || docs.size() == 0) {
 			return new WriteResult(0L);
 		}
 		for(Document doc:docs) {
@@ -377,7 +377,7 @@ public class DBCollection{
 	 * @date 2017年8月19日 下午4:38:54
 	 */
 	public WriteResult insertMany(List<Document> docs, InsertManyOptions options){
-		if(docs != null && docs.size() != 0) {
+		if(docs == null || docs.size() == 0) {
 			return new WriteResult(0L);
 		} 
 		if(options == null){
@@ -387,7 +387,7 @@ public class DBCollection{
 			doc.append("_tm", new BSONTimestamp());
 		}
 		this.collection.insertMany(docs, options);
-		return new WriteResult(1L);
+		return new WriteResult(docs.size());
 		
 	}
 	/**
