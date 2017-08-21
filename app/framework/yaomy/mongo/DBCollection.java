@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
+import org.bson.types.BSONTimestamp;
 
 import com.mongodb.bulk.DeleteRequest;
 import com.mongodb.client.DistinctIterable;
@@ -200,6 +201,9 @@ public class DBCollection{
 	 * @date 2017年8月20日 下午6:18:29
 	 */
 	public Document findOneAndUpdate(Document query, Document update, FindOneAndUpdateOptions options){
+		if(options == null) {
+			options = new FindOneAndUpdateOptions();
+		}
 		return this.collection.findOneAndUpdate(query, update, options);
 	}
 	/**
@@ -326,6 +330,9 @@ public class DBCollection{
 	 * @date 2017年8月19日 下午3:02:17
 	 */
 	public WriteResult insertOne(Document doc){
+		if(doc != null){
+			doc.append("_tm", new BSONTimestamp());
+		}
 		this.collection.insertOne(doc);
 		
 		return new WriteResult(1L);
@@ -340,6 +347,9 @@ public class DBCollection{
 		InsertOneOptions options = new InsertOneOptions();
 		options.bypassDocumentValidation(isValidate);
 		
+		if(doc != null) {
+			doc.append("_tm", new BSONTimestamp());
+		}
 		this.collection.insertOne(doc, options);
 		
 		return new WriteResult(1L);
@@ -351,8 +361,13 @@ public class DBCollection{
 	 * @date 2017年8月19日 下午4:10:33
 	 */
 	public WriteResult insertMany(List<Document> docs){
+		if(docs != null && docs.size() != 0) {
+			return new WriteResult(0L);
+		}
+		for(Document doc:docs) {
+			doc.append("_tm", new BSONTimestamp());
+		}
 		this.collection.insertMany(docs);
-		
 		return new WriteResult(docs.size());
 	}
 	/**
@@ -362,12 +377,18 @@ public class DBCollection{
 	 * @date 2017年8月19日 下午4:38:54
 	 */
 	public WriteResult insertMany(List<Document> docs, InsertManyOptions options){
+		if(docs != null && docs.size() != 0) {
+			return new WriteResult(0L);
+		} 
 		if(options == null){
 			options = new InsertManyOptions();
 		}
+		for(Document doc:docs) {
+			doc.append("_tm", new BSONTimestamp());
+		}
 		this.collection.insertMany(docs, options);
-		
 		return new WriteResult(1L);
+		
 	}
 	/**
 	 * 
