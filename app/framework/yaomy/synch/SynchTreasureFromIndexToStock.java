@@ -17,6 +17,7 @@ import framework.yaomy.mongo.DBCursor;
 import framework.yaomy.mongo.GGMongoClientPool;
 import framework.yaomy.mongo.GGMongoClients;
 import framework.yaomy.mongo.GGMongoOperator;
+import framework.yaomy.mongo.WriteResult;
 import utils.MongoUtil;
 
 /**
@@ -71,7 +72,7 @@ public class SynchTreasureFromIndexToStock {
 		setValue2.append("stock_name", "光大股份");
 		setValue2.append("create_date", new Date());
 		
-		collection.insertOne(setValue);
+		WriteResult result = collection.insertOne(setValue);
 		
 		List<Document> list = new ArrayList<Document>();
 		list.add(setValue1);

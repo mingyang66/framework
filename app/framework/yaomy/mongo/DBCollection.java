@@ -325,8 +325,10 @@ public class DBCollection{
 	 * @author yaomingyang
 	 * @date 2017年8月19日 下午3:02:17
 	 */
-	public void insertOne(Document doc){
+	public WriteResult insertOne(Document doc){
 		this.collection.insertOne(doc);
+		
+		return new WriteResult(1L);
 	}
 	/**
 	 * 
@@ -334,11 +336,13 @@ public class DBCollection{
 	 * @author yaomingyang
 	 * @date 2017年8月19日 下午4:25:26
 	 */
-	public void insertOne(Document doc, boolean isValidate){
+	public WriteResult insertOne(Document doc, boolean isValidate){
 		InsertOneOptions options = new InsertOneOptions();
 		options.bypassDocumentValidation(isValidate);
 		
 		this.collection.insertOne(doc, options);
+		
+		return new WriteResult(1L);
 	}
 	/**
 	 * 
@@ -346,8 +350,10 @@ public class DBCollection{
 	 * @author yaomingyang
 	 * @date 2017年8月19日 下午4:10:33
 	 */
-	public void insertMany(List<Document> docs){
+	public WriteResult insertMany(List<Document> docs){
 		this.collection.insertMany(docs);
+		
+		return new WriteResult(docs.size());
 	}
 	/**
 	 * 遗留未解决问题
@@ -355,11 +361,13 @@ public class DBCollection{
 	 * @author yaomingyang
 	 * @date 2017年8月19日 下午4:38:54
 	 */
-	public void insertMany(List<Document> docs, InsertManyOptions options){
+	public WriteResult insertMany(List<Document> docs, InsertManyOptions options){
 		if(options == null){
 			options = new InsertManyOptions();
 		}
 		this.collection.insertMany(docs, options);
+		
+		return new WriteResult(1L);
 	}
 	/**
 	 * 
@@ -367,8 +375,9 @@ public class DBCollection{
 	 * @author yaomy
 	 * @date 2017年8月21日 下午1:56:59
 	 */
-	public DeleteResult deleteOne(Document query){
-		return this.collection.deleteOne(query);
+	public WriteResult deleteOne(Document query){
+		DeleteResult result = this.collection.deleteOne(query);
+		return new WriteResult(result.getDeletedCount());
 	}
 	/**
 	 * 
@@ -376,8 +385,9 @@ public class DBCollection{
 	 * @author yaomy
 	 * @date 2017年8月21日 下午1:56:59
 	 */
-	public DeleteResult deleteOne(Document query, DeleteOptions options){
-		return this.collection.deleteOne(query, options);
+	public WriteResult deleteOne(Document query, DeleteOptions options){
+		DeleteResult result = this.collection.deleteOne(query, options);
+		return new WriteResult(result.getDeletedCount());
 	}
 	/**
 	 * 
@@ -385,8 +395,9 @@ public class DBCollection{
 	 * @author yaomy
 	 * @date 2017年8月21日 下午1:59:33
 	 */
-	public DeleteResult deleteMany(Document query){
-		return this.collection.deleteMany(query);
+	public WriteResult deleteMany(Document query){
+		DeleteResult result = this.collection.deleteMany(query);
+		return new WriteResult(result.getDeletedCount());
 	}
 	/**
 	 * 
@@ -394,7 +405,8 @@ public class DBCollection{
 	 * @author yaomy
 	 * @date 2017年8月21日 下午1:59:33
 	 */
-	public DeleteResult deleteMany(Document query, DeleteOptions options){
-		return this.collection.deleteMany(query, options);
+	public WriteResult deleteMany(Document query, DeleteOptions options){
+		DeleteResult result = this.collection.deleteMany(query, options);
+		return new WriteResult(result.getDeletedCount());
 	}
 }
