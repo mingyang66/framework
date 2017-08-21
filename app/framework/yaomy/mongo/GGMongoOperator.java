@@ -83,7 +83,7 @@ public class GGMongoOperator {
 	 * @date 2017年8月19日 下午5:56:18
 	 */
 	public static Document newId(DBCollection collection, String dbName){
-		DBCollection newCollection = getDBCollection(dbName, "fids");
+		DBCollection newCollection = getDBCollection(dbName, "gg_ids");
 		
 		Document query = new Document("collection_name", collection.getCollectionName());
 		DBCursor cursor = newCollection.find(query);

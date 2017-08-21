@@ -39,7 +39,7 @@ public class SynchTreasureFromIndexToStock {
 		GGLogger.info(cursor.tryNext());
 		while(cursor.hasNext()){
 			Document doc = cursor.next();
-//			GGLogger.info(dsoc.toJson());
+			GGLogger.info(doc.toJson());
 		}
 		cursor.close();
 		
