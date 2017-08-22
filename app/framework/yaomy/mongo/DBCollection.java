@@ -4,10 +4,12 @@ package framework.yaomy.mongo;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 import org.bson.Document;
 import org.bson.types.BSONTimestamp;
 
-import com.mongodb.bulk.DeleteRequest;
+import com.mongodb.bulk.BulkWriteResult;
 import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.ListCollectionsIterable;
@@ -24,12 +26,12 @@ import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.IndexModel;
 import com.mongodb.client.model.IndexOptions;
 import com.mongodb.client.model.InsertManyOptions;
+import com.mongodb.client.model.InsertOneModel;
 import com.mongodb.client.model.InsertOneOptions;
+import com.mongodb.client.model.WriteModel;
 import com.mongodb.client.result.DeleteResult;
-import com.mongodb.client.result.UpdateResult;
 
 import framework.yaomy.log.GGLogger;
-import net.sf.json.JSONObject;
 
 /**
  * @Description:TODO
@@ -150,6 +152,15 @@ public class DBCollection{
 		cursor.close();
 		
 		return indexs;
+	}
+	/**
+	 * 
+	 * @Description:支持：insertOne、updateOne、updateMany、 replaceOne、deleteOne、deleteMany
+	 * @author yaomy
+	 * @date 2017年8月22日 上午9:50:40
+	 */
+	public BulkWriteResult bulkWrite(List<WriteModel<Document>> bulk){
+		return this.collection.bulkWrite(bulk);
 	}
 	/**
 	 * 

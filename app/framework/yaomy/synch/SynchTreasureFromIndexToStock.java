@@ -7,7 +7,10 @@ import java.util.List;
 
 import org.bson.Document;
 
+import com.mongodb.bulk.BulkWriteResult;
 import com.mongodb.client.model.DeleteOptions;
+import com.mongodb.client.model.InsertOneModel;
+import com.mongodb.client.model.WriteModel;
 import com.mongodb.client.result.DeleteResult;
 
 import framework.yaomy.config.GGConfigurer;
