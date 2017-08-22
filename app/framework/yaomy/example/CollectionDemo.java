@@ -1,5 +1,5 @@
 
-package framework.yaomy.synch;
+package framework.yaomy.example;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +32,7 @@ import utils.MongoUtil;
  * @copyright (c) 2017 yaomy Co'Ltd Inc. All rights reserved.
  * @date 2017年8月18日 上午10:38:09
  */
-public class SynchTreasureFromIndexToStock {
+public class CollectionDemo {
 
 	public static void main(String[] args) {
 		GGConfigurer.load("conf/application.conf");

@@ -11,12 +11,14 @@ public class SendMes {
 	  
 	  public static void main(String[] argv) throws Exception {
 		GGConfigurer.load("conf/application.conf");
+		
 		String HOST = GGConfigurer.getKey("ggmes.host");
 		int PORT = GGConfigurer.getInteger("ggmes.port");
 		String VHOST = GGConfigurer.getKey("ggmes.vhost");
 		String USERNAME = GGConfigurer.getKey("ggmes.username");
 		String PASSWORD = GGConfigurer.getKey("ggmes.password");
 		System.out.println(GGConfigurer.getDouble("ggmes.host"));
+		
 	    ConnectionFactory factory = new ConnectionFactory();
 	    factory.setHost(HOST);
 	    factory.setPort(PORT);
