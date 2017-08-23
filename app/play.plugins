@@ -1,1 +1,2 @@
-101:mongo.GGMongoPlugin
+101:framework.yaomy.mongo.pool.GGMongoPlugin
+102:framework.yaomy.thread.pool.GGThreadPoolPlugin
