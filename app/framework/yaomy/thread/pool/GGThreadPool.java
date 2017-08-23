@@ -4,7 +4,7 @@ package framework.yaomy.thread.pool;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * @Description:TODO
+ * @Description:线程池
  * @version 1.0
  * @since JDK1.7
  * @author yaomy

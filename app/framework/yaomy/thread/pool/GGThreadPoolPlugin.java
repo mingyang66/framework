@@ -8,7 +8,7 @@ import framework.yaomy.mongo.pool.GGMongoClients;
 import play.PlayPlugin;
 
 /**
- * @Description:TODO
+ * @Description:线程插件
  * @version 1.0
  * @since JDK1.7
  * @author yaomy
