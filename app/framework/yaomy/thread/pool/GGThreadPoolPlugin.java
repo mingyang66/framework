@@ -1,10 +1,10 @@
 
-package framework.yaomy.thread;
+package framework.yaomy.thread.pool;
 
 import framework.yaomy.config.GGConfigurer;
 import framework.yaomy.log.GGLogger;
-import framework.yaomy.mongo.GGMongoClientPool;
-import framework.yaomy.mongo.GGMongoClients;
+import framework.yaomy.mongo.pool.GGMongoClientPool;
+import framework.yaomy.mongo.pool.GGMongoClients;
 import play.PlayPlugin;
 
 /**

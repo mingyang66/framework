@@ -7,12 +7,12 @@ import java.util.List;
 import org.bson.Document;
 
 import framework.yaomy.config.GGConfigurer;
-import framework.yaomy.mongo.DBCollection;
-import framework.yaomy.mongo.DBCursor;
-import framework.yaomy.mongo.GGMongoClientPool;
-import framework.yaomy.mongo.GGMongoClients;
-import framework.yaomy.mongo.GGMongoOperator;
-import framework.yaomy.mongo.WriteResult;
+import framework.yaomy.mongo.pool.DBCollection;
+import framework.yaomy.mongo.pool.DBCursor;
+import framework.yaomy.mongo.pool.GGMongoClientPool;
+import framework.yaomy.mongo.pool.GGMongoClients;
+import framework.yaomy.mongo.pool.GGMongoOperator;
+import framework.yaomy.mongo.pool.WriteResult;
 
 /**
  * @Description:文本索引demo

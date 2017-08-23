@@ -1,5 +1,5 @@
 
-package framework.yaomy.thread;
+package framework.yaomy.thread.pool;
 /**
  * @Description:优先级线程
  * @version 1.0

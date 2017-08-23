@@ -1,5 +1,5 @@
 
-package framework.yaomy.mongo;
+package framework.yaomy.mongo.pool;
 /**
  * @Description:TODO
  * @version 1.0

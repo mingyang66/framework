@@ -10,7 +10,7 @@ import com.google.gson.JsonElement;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoIterable;
 
-import framework.yaomy.mongo.DBCollection;
+import framework.yaomy.mongo.pool.DBCollection;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Controller;

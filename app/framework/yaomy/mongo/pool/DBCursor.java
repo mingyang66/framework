@@ -1,5 +1,5 @@
 
-package framework.yaomy.mongo;
+package framework.yaomy.mongo.pool;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;

@@ -1,4 +1,4 @@
-package framework.yaomy.mongo;
+package framework.yaomy.mongo.pool;
 
 import framework.yaomy.config.GGConfigurer;
 import framework.yaomy.log.GGLogger;
