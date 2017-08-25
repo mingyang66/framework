@@ -3,6 +3,7 @@ package framework.yaomy.example;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
+import framework.yaomy.log.GGLogger;
 import framework.yaomy.thread.pool.GGPriorityTask;
 import framework.yaomy.thread.pool.GGThreadPool;
 import framework.yaomy.thread.pool.GGThreadPoolBuilder;
@@ -28,14 +29,15 @@ public class PriorityThreadDemo extends GGPriorityTask{
 	
 	@Override
 	public void run() {
-		System.out.println("开始执行线程。。。。。。。。。。。。。。。"+num);
+		GGLogger.info("开始执行线程。。。。。。。。。。。。。。。"+num);
 		
 	}
 	public static void main(String[] args) {
 		GGThreadPoolBuilder.initThreadPool();
-		for(int i=0;i<11000;i++){
+		for(int i=0;i<1;i++){
 			GGThreadPool.commit(new PriorityThreadDemo(i));
 			System.out.println(i);
+			GGLogger.info(i);
 		}
 	}
 }
