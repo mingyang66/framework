@@ -17,6 +17,8 @@ import framework.yaomy.config.GGConfigurer;
  * 核心线程池和最大线程大小
  * 一个ThreadPoolExecutor将会根据核心线程池和最大线程大小的边界自动的调整线程池大小，如果正在运行的线程数比核心线程池小，
  * 即使其它的工作线程空闲着也将会创建一个新的线程来处理新的任务，如果正在运行的线程大于核心线程池小于最大线程，只有在队列满的时候才会创建新的线程。
+ * 
+ * 1.降低资源消耗：如果当前池超过核心线程池大小，超过核心池的线程在空闲时间超过keepAliveTime时将被终止；
  * @version 1.0
  * @since JDK1.7
  * @author yaomy
@@ -34,15 +36,16 @@ public class GGThreadPoolBuilder {
 		//线程池空闲时，线程存活的时间
 		int keepAliveTime = 60;
 		//队列大小
-		int queue_size = GGConfigurer.getInteger("ggthreadpool.queuesize", 10000);
+		int queue_size = GGConfigurer.getInteger("ggthreadpool.queuesize", 100);
 		ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
 				corePoolSize, 
 				maximumPoolSize, 
 				keepAliveTime, 
 				TimeUnit.SECONDS, 
 				/**
-				 * 优先级队列必须是实现Comparable接口，队列通过这个接口的compare方法确定对象的priority。
+				 * 1.优先级队列必须是实现Comparable接口，队列通过这个接口的compare方法确定对象的priority。
 				 * 当前和其他对象比较，如果compare方法返回负数，那么在队列里面的优先级就比较搞
+				 * 2.优先级队列是一个基于堆的无界并发安全的优先级队列。
 				 */
 				new PriorityBlockingQueue<Runnable>(queue_size)); 
 		

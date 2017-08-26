@@ -30,14 +30,20 @@ public class PriorityThreadDemo extends GGPriorityTask{
 	@Override
 	public void run() {
 		GGLogger.info("开始执行线程。。。。。。。。。。。。。。。"+num);
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	public static void main(String[] args) {
 		GGThreadPoolBuilder.initThreadPool();
-		for(int i=0;i<1;i++){
+		for(int i=0;i<1000;i++){
 			GGThreadPool.commit(new PriorityThreadDemo(i));
-			System.out.println(i);
-			GGLogger.info(i);
+			GGLogger.info("最新提交："+i);
 		}
+		
 	}
 }
