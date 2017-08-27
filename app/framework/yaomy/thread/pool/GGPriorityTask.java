@@ -23,13 +23,13 @@ public class GGPriorityTask implements Comparable<GGPriorityTask>, Runnable{
 
 	/**
 	 * 
-	 * @Description:当前线程的优先级如果想小于传入对象的优先级返回-1
+	 * @Description:当前线程的优先级如果想小于传入对象的优先级返回-1，值越小优先级越高
 	 * @author yaomy
 	 * @date 2017年8月23日 下午3:53:42
 	 */
 	@Override
 	public int compareTo(GGPriorityTask o) {
-		return o.getPriority().compareTo(this.priority);
+		return this.priority.compareTo(o.getPriority());
 	}
 
 	@Override
