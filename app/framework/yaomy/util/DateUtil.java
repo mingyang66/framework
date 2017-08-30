@@ -37,10 +37,22 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月29日 下午8:31:39
 	 */
+	public static Date getLastMonthDate(Date date) {
+		return getLastMonthDate(date, null);
+	}
+	/**
+	 * 
+	 * @Description:返回日期的上一个月日期
+	 * @author yaomy
+	 * @date 2017年8月29日 下午8:31:39
+	 */
 	public static Date getLastMonthDate(Date date, String format) {
+		if(StringUtils.isBlank(format)) {
+			format = "yyyy-MM-dd";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		try {
-			return sdf.parse(getLastMonthStr(date, format));
+			return sdf.parse(getLastMonthToStr(date, format));
 		} catch (ParseException e) {
 			return null;
 		}
@@ -51,7 +63,16 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月29日 下午8:31:03
 	 */
-	public static String getLastMonthStr(Date date, String format) {
+	public static String getLastMonthToStr(Date date) {
+		return getLastMonthToStr(date, null);
+	}
+	/**
+	 * 
+	 * @Description:返回上个月字符串类型日期
+	 * @author yaomy
+	 * @date 2017年8月29日 下午8:31:03
+	 */
+	public static String getLastMonthToStr(Date date, String format) {
 		if(date == null) {
 			return null;
 		}
@@ -60,5 +81,88 @@ public class DateUtil {
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(getLastMonth(date));
+	}
+	/**
+	 * 
+	 * @Description:格式化日期
+	 * @author yaomy
+	 * @date 2017年8月30日 下午1:21:50
+	 */
+	public static Date formatDate(Date date) {
+		return formatDate(date, null);
+	}
+	/**
+	 * 
+	 * @Description:格式化日期
+	 * @author yaomy
+	 * @date 2017年8月30日 下午1:21:50
+	 */
+	public static Date formatDate(Date date, String format) {
+		if(date == null) {
+			return null;
+		}
+		if(StringUtils.isBlank(format)) {
+			format = "yyyy-MM-dd";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		try {
+			return sdf.parse(formatDateToStr(date, format));
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	/**
+	 * 
+	 * @Description:将日期转换成字符串类型
+	 * @author yaomy
+	 * @date 2017年8月30日 下午1:24:43
+	 */
+	public static String formatDateToStr(Date date) {
+		return formatDateToStr(date, null);
+	}
+	/**
+	 * 
+	 * @Description:将日期转换成字符串类型
+	 * @author yaomy
+	 * @date 2017年8月30日 下午1:24:43
+	 */
+	public static String formatDateToStr(Date date, String format) {
+		if(date == null) {
+			return null;
+		}
+		if(StringUtils.isBlank(format)) {
+			format = "yyyy-MM-dd";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(date);
+	}
+	/**
+	 * 
+	 * @Description:将字符串类型日期转换成指定格式的日期对象
+	 * @author yaomy
+	 * @date 2017年8月30日 下午1:26:29
+	 */
+	public static Date formatStrToDate(String date) {
+		return formatStrToDate(date, null);
+	}
+	/**
+	 * 
+	 * @Description:将字符串类型日期转换成指定格式的日期对象
+	 * @author yaomy
+	 * @date 2017年8月30日 下午1:26:29
+	 */
+	public static Date formatStrToDate(String date, String format) {
+		if(date == null) {
+			return null;
+		}
+		if(StringUtils.isBlank(format)) {
+			format = "yyyy-MM-dd";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		try {
+			return sdf.parse(date);
+		} catch (ParseException e) {
+			return null;
+		}
 	}
 }
