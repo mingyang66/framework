@@ -187,5 +187,7 @@ public class DateUtil {
 		
 		System.out.println(formatDateToStr(getLatelyHourDate(new Date(), -2), "yyyy-MM-dd HH:mm:ss"));
 		System.out.println(getLatelyHourDate(new Date(), 2));
+		System.out.println(formatDateToStr(new Date(), "yyyy-MM-dd HH:mm:ss"));
+		System.out.println(formatDateToStr(new Date(), "yyyy-MM-dd HH:mm:ss").substring(11, 16));
 	}
 }
