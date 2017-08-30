@@ -84,6 +84,20 @@ public class DateUtil {
 	}
 	/**
 	 * 
+	 * @Description:获取指定日期往前或往后推hour个小时的日期,当前日期之前负数-2，之后正数2
+	 * @author yaomy
+	 * @date 2017年8月30日 下午2:13:19
+	 */
+	public static Date getLatelyHourDate(Date date, int hour) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY)+hour);
+		
+		return cal.getTime();
+	}
+	/**
+	 * 
 	 * @Description:格式化日期
 	 * @author yaomy
 	 * @date 2017年8月30日 下午1:21:50
@@ -164,5 +178,14 @@ public class DateUtil {
 		} catch (ParseException e) {
 			return null;
 		}
+	}
+	public static void main(String[] args) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		
+		cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY)-1);
+		
+		System.out.println(formatDateToStr(getLatelyHourDate(new Date(), -2), "yyyy-MM-dd HH:mm:ss"));
+		System.out.println(getLatelyHourDate(new Date(), 2));
 	}
 }
