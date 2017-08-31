@@ -34,7 +34,7 @@ public class DateUtil {
 	 * @date 2017年8月29日 下午8:31:39
 	 */
 	public static Date getBeforeOneMonthToDate(Date date, String format) {
-		return getLatelyMonthToString(date, format, -1);
+		return getLatelyMonthDate(date, format, -1);
 	}
 	/**
 	 * 
@@ -43,7 +43,7 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月31日 上午11:31:43
 	 */
-	public static Date getLatelyMonthToString(Date date, String format, int month) {
+	public static Date getLatelyMonthDate(Date date, String format, int month) {
 		if(date == null) {
 			return null;
 		}
@@ -67,7 +67,7 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月30日 下午2:13:19
 	 */
-	public static Date getLatelyHourToDate(Date date, int hour) {
+	public static Date getLatelyHourDate(Date date, int hour) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		
@@ -204,18 +204,5 @@ public class DateUtil {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 000);
 		return cal.getTime();
-	}
-	public static void main(String[] args) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
-		
-		cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY)-1);
-		
-		System.out.println(dateToString(new Date(), "yyyy-MM-dd HH:mm:ss"));
-		System.out.println(dateToString(new Date(), "yyyy-MM-dd HH:mm:ss").substring(11, 16));
-		System.out.println(getNowDate());
-		System.out.println(dateToString(getNowDate(), "yyyy-MM-dd HH:mm:ss:SSS"));
-		System.out.println(getLastDayOfMonth(getNowDate()));
-		System.out.println(getfirstDayOfMonth(getNowDate()));
 	}
 }
