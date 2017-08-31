@@ -20,16 +20,12 @@ import org.apache.commons.lang3.StringUtils;
 public class DateUtil {
 	/**
 	 * 
-	 * @Description:当前日期往前推一个月，即获取上一个月的时间
+	 * @Description:返回日期的上一个月日期
 	 * @author yaomy
-	 * @date 2017年8月29日 下午7:55:05
-	 * 
+	 * @date 2017年8月29日 下午8:31:39
 	 */
-	public static Date getLastMonth(Date date) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - 1);
-		return cal.getTime();
+	public static Date getBeforeOneMonthToDate(Date date) {
+		return getBeforeOneMonthToDate(date, null);
 	}
 	/**
 	 * 
@@ -37,22 +33,13 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月29日 下午8:31:39
 	 */
-	public static Date getLastMonthDate(Date date) {
-		return getLastMonthDate(date, null);
-	}
-	/**
-	 * 
-	 * @Description:返回日期的上一个月日期
-	 * @author yaomy
-	 * @date 2017年8月29日 下午8:31:39
-	 */
-	public static Date getLastMonthDate(Date date, String format) {
+	public static Date getBeforeOneMonthToDate(Date date, String format) {
 		if(StringUtils.isBlank(format)) {
 			format = "yyyy-MM-dd";
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		try {
-			return sdf.parse(getLastMonthToStr(date, format));
+			return sdf.parse(getBeforeOneMonthToString(date, format));
 		} catch (ParseException e) {
 			return null;
 		}
@@ -63,8 +50,8 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月29日 下午8:31:03
 	 */
-	public static String getLastMonthToStr(Date date) {
-		return getLastMonthToStr(date, null);
+	public static String getBeforeOneMonthToString(Date date) {
+		return getBeforeOneMonthToString(date, null);
 	}
 	/**
 	 * 
@@ -72,7 +59,7 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月29日 下午8:31:03
 	 */
-	public static String getLastMonthToStr(Date date, String format) {
+	public static String getBeforeOneMonthToString(Date date, String format) {
 		if(date == null) {
 			return null;
 		}
@@ -80,7 +67,10 @@ public class DateUtil {
 			format = "yyyy-MM-dd";
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		return sdf.format(getLastMonth(date));
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - 1);
+		return sdf.format(cal.getTime());
 	}
 	/**
 	 * 
@@ -193,6 +183,68 @@ public class DateUtil {
 		cal.set(Calendar.MILLISECOND, 000);
 		return cal.getTime();
 	}
+	/**
+	 * 
+	 * @Description:获取当前日期所在月的第一天
+	 * @author yaomy
+	 * @date 2017年8月31日 上午9:50:17
+	 */
+	public static Date getfirstDayOfMonth() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 000);
+		return cal.getTime();
+	}
+	/**
+	 * 
+	 * @Description:获取指定日期所在月的第一天
+	 * @author yaomy
+	 * @date 2017年8月31日 上午9:46:38
+	 */
+	public static Date getfirstDayOfMonth(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 000);
+		return cal.getTime();
+	}
+	/**
+	 * 
+	 * @Description:获取当前日期所在月的最后一天
+	 * @author yaomy
+	 * @date 2017年8月31日 上午9:49:48
+	 */
+	public static Date getLastDayOfMonth() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 000);
+		return cal.getTime();
+	}
+	/**
+	 * 
+	 * @Description:获取指定日期所在月的最后一天
+	 * @author yaomy
+	 * @date 2017年8月31日 上午9:45:04
+	 */
+	public static Date getLastDayOfMonth(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 000);
+		return cal.getTime();
+	}
 	public static void main(String[] args) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
@@ -205,5 +257,7 @@ public class DateUtil {
 		System.out.println(dateToString(new Date(), "yyyy-MM-dd HH:mm:ss").substring(11, 16));
 		System.out.println(getNowDate());
 		System.out.println(dateToString(getNowDate(), "yyyy-MM-dd HH:mm:ss:SSS"));
+		System.out.println(getLastDayOfMonth(getNowDate()));
+		System.out.println(getfirstDayOfMonth(getNowDate()));
 	}
 }
