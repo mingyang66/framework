@@ -120,7 +120,7 @@ public class DateUtil {
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		try {
-			return sdf.parse(formatDateToStr(date, format));
+			return sdf.parse(dateToString(date, format));
 		} catch (ParseException e) {
 			return null;
 		}
@@ -131,8 +131,8 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月30日 下午1:24:43
 	 */
-	public static String formatDateToStr(Date date) {
-		return formatDateToStr(date, null);
+	public static String dateToString(Date date) {
+		return dateToString(date, null);
 	}
 	/**
 	 * 
@@ -140,7 +140,7 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月30日 下午1:24:43
 	 */
-	public static String formatDateToStr(Date date, String format) {
+	public static String dateToString(Date date, String format) {
 		if(date == null) {
 			return null;
 		}
@@ -156,8 +156,8 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月30日 下午1:26:29
 	 */
-	public static Date formatStrToDate(String date) {
-		return formatStrToDate(date, null);
+	public static Date stringToDate(String date) {
+		return stringToDate(date, null);
 	}
 	/**
 	 * 
@@ -165,7 +165,7 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月30日 下午1:26:29
 	 */
-	public static Date formatStrToDate(String date, String format) {
+	public static Date stringToDate(String date, String format) {
 		if(date == null) {
 			return null;
 		}
@@ -179,15 +179,31 @@ public class DateUtil {
 			return null;
 		}
 	}
+	/**
+	 * 
+	 * @Description:获取当前日期
+	 * @author yaomy
+	 * @date 2017年8月31日 上午9:23:53
+	 */
+	public static Date getNowDate(){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 000);
+		return cal.getTime();
+	}
 	public static void main(String[] args) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		
 		cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY)-1);
 		
-		System.out.println(formatDateToStr(getLatelyHourDate(new Date(), -2), "yyyy-MM-dd HH:mm:ss"));
+		System.out.println(dateToString(getLatelyHourDate(new Date(), -2), "yyyy-MM-dd HH:mm:ss"));
 		System.out.println(getLatelyHourDate(new Date(), 2));
-		System.out.println(formatDateToStr(new Date(), "yyyy-MM-dd HH:mm:ss"));
-		System.out.println(formatDateToStr(new Date(), "yyyy-MM-dd HH:mm:ss").substring(11, 16));
+		System.out.println(dateToString(new Date(), "yyyy-MM-dd HH:mm:ss"));
+		System.out.println(dateToString(new Date(), "yyyy-MM-dd HH:mm:ss").substring(11, 16));
+		System.out.println(getNowDate());
+		System.out.println(dateToString(getNowDate(), "yyyy-MM-dd HH:mm:ss:SSS"));
 	}
 }
