@@ -34,32 +34,16 @@ public class DateUtil {
 	 * @date 2017年8月29日 下午8:31:39
 	 */
 	public static Date getBeforeOneMonthToDate(Date date, String format) {
-		if(StringUtils.isBlank(format)) {
-			format = "yyyy-MM-dd";
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		try {
-			return sdf.parse(getBeforeOneMonthToString(date, format));
-		} catch (ParseException e) {
-			return null;
-		}
+		return getLatelyMonthToString(date, format, -1);
 	}
 	/**
 	 * 
-	 * @Description:返回上个月字符串类型日期
+	 * @Description:获取指定日期向前几个月或者想后几个月
+	 * @param month 向前或者向后的约束 可为正或负数
 	 * @author yaomy
-	 * @date 2017年8月29日 下午8:31:03
+	 * @date 2017年8月31日 上午11:31:43
 	 */
-	public static String getBeforeOneMonthToString(Date date) {
-		return getBeforeOneMonthToString(date, null);
-	}
-	/**
-	 * 
-	 * @Description:返回上个月字符串类型日期
-	 * @author yaomy
-	 * @date 2017年8月29日 下午8:31:03
-	 */
-	public static String getBeforeOneMonthToString(Date date, String format) {
+	public static Date getLatelyMonthToString(Date date, String format, int month) {
 		if(date == null) {
 			return null;
 		}
@@ -69,8 +53,13 @@ public class DateUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
-		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - 1);
-		return sdf.format(cal.getTime());
+		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + month);
+		
+		try {
+			return sdf.parse(sdf.format(cal.getTime()));
+		} catch (ParseException e) {
+			return null;
+		}
 	}
 	/**
 	 * 
@@ -78,42 +67,13 @@ public class DateUtil {
 	 * @author yaomy
 	 * @date 2017年8月30日 下午2:13:19
 	 */
-	public static Date getLatelyHourDate(Date date, int hour) {
+	public static Date getLatelyHourToDate(Date date, int hour) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		
 		cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY)+hour);
 		
 		return cal.getTime();
-	}
-	/**
-	 * 
-	 * @Description:格式化日期
-	 * @author yaomy
-	 * @date 2017年8月30日 下午1:21:50
-	 */
-	public static Date formatDate(Date date) {
-		return formatDate(date, null);
-	}
-	/**
-	 * 
-	 * @Description:格式化日期
-	 * @author yaomy
-	 * @date 2017年8月30日 下午1:21:50
-	 */
-	public static Date formatDate(Date date, String format) {
-		if(date == null) {
-			return null;
-		}
-		if(StringUtils.isBlank(format)) {
-			format = "yyyy-MM-dd";
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		try {
-			return sdf.parse(dateToString(date, format));
-		} catch (ParseException e) {
-			return null;
-		}
 	}
 	/**
 	 * 
@@ -251,8 +211,6 @@ public class DateUtil {
 		
 		cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY)-1);
 		
-		System.out.println(dateToString(getLatelyHourDate(new Date(), -2), "yyyy-MM-dd HH:mm:ss"));
-		System.out.println(getLatelyHourDate(new Date(), 2));
 		System.out.println(dateToString(new Date(), "yyyy-MM-dd HH:mm:ss"));
 		System.out.println(dateToString(new Date(), "yyyy-MM-dd HH:mm:ss").substring(11, 16));
 		System.out.println(getNowDate());
