@@ -20,7 +20,7 @@ public class PriorityBlockQueueDemo {
 	public static void main(String[] args) {
 		PriorityBlockingQueue<User> queue = new PriorityBlockingQueue<User>();
 		for(int i=0; i<12; i++){
-			User user = new User();
+			User user = new User(i, "sdf");
 	        int max=20;
 	        int min=10;
 	        Random random = new Random();

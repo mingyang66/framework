@@ -21,7 +21,7 @@ import framework.yaomy.mongo.pool.GGMongoClientPool;
 import framework.yaomy.mongo.pool.GGMongoClients;
 import framework.yaomy.mongo.pool.GGMongoOperator;
 import framework.yaomy.mongo.pool.WriteResult;
-import utils.MongoUtil;
+import framework.yaomy.util.MongoUtil;
 
 /**
  * @Description:TODO

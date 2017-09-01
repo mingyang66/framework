@@ -15,6 +15,10 @@ public class User implements Comparable<User>{
 	private Integer priority;
 	private String username;
 	
+	public User(Integer priority, String username) {
+		this.priority = priority;
+		this.username = username;
+	}
 	public Integer getPriority() {
 		return priority;
 	}

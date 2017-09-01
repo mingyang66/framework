@@ -1,4 +1,4 @@
-package utils;
+package framework.yaomy.util;
 
 import framework.yaomy.mongo.pool.DBCollection;
 import framework.yaomy.mongo.pool.GGMongoOperator;
