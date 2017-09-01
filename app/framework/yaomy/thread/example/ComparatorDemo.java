@@ -32,6 +32,9 @@ public class ComparatorDemo {
 			public int compare(Dog dog1, Dog dog2) {
 				return dog1.getAge().compareTo(dog2.getAge());
 			}
+			public boolean equals(Object paramObject) {
+				return false;
+			}
 		});
 		for(Dog dog:list) {
 			System.out.println("狗狗年龄："+dog.getAge()+"==========狗狗名字："+dog.getDogName());
