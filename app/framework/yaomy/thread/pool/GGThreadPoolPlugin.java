@@ -1,11 +1,8 @@
 
 package framework.yaomy.thread.pool;
 
-import framework.yaomy.config.GGConfigurer;
-import framework.yaomy.log.GGLogger;
-import framework.yaomy.mongo.pool.GGMongoClientPool;
-import framework.yaomy.mongo.pool.GGMongoClients;
 import play.PlayPlugin;
+import framework.yaomy.log.GGLogger;
 
 /**
  * @Description:线程插件

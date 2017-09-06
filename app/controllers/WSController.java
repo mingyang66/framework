@@ -3,10 +3,10 @@ package controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.JsonElement;
-
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
+
+import com.google.gson.JsonElement;
 
 public class WSController {
 

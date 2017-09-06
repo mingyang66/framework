@@ -1,13 +1,10 @@
 
 package framework.yaomy.example;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 import framework.yaomy.log.GGLogger;
 import framework.yaomy.thread.pool.GGPriorityTask;
 import framework.yaomy.thread.pool.GGThreadPool;
 import framework.yaomy.thread.pool.GGThreadPoolBuilder;
-import framework.yaomy.thread.pool.GGThreadPoolExecutor;
 
 /**
  * @Description:TODO

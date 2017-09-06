@@ -2,13 +2,10 @@
 package framework.yaomy.thread.example;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import framework.yaomy.thread.model.Dog;
-import framework.yaomy.thread.model.Student2;
+
 
 /**
  * @Description:集合工具类
