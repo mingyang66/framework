@@ -174,6 +174,25 @@ public class DBCollection{
 		return find(query, null);
 	}
 	/**
+	 * 查找指定的一个文档
+	 * @param query 查找条件
+	 * @return
+	 */
+	public Document findOne(Document query) {
+		DBCursor cursor = find(query);
+		return cursor.tryNext();
+	}
+	/**
+	 * 查找指定的一个文档
+	 * @param query 查找条件
+	 * @param keys 返回的字段
+	 * @return
+	 */
+	public Document findOne(Document query, Document keys){
+		DBCursor cursor = find(query, keys);
+		return cursor.tryNext();
+	}
+	/**
 	 * 
 	 * @Description:根据条件查询文档集合并且通过过滤器来过滤掉要显示的字段
 	 * @author yaomy

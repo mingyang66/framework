@@ -205,4 +205,26 @@ public class DateUtil {
 		cal.set(Calendar.MILLISECOND, 000);
 		return cal.getTime();
 	}
+	/**
+	 * 数字转日期
+	 */
+	public static Date integerToDate(Integer date){
+		if(date == null) {
+			return null;
+		}
+		return stringToDate(date.toString(), "yyyyMMdd");
+	}
+	/**
+	 * 
+	 * @Description:日期转数字
+	 * @author yaomy
+	 * @date 2017年9月11日 下午4:18:01
+	 */
+	public static Integer dateToInteger(Date date){
+		String result = dateToString(date,"yyyyMMdd");
+    	if(result != null && StringUtils.isNotBlank(result)){
+    		return Integer.parseInt(result);
+    	}
+    	return null;
+	}
 }
