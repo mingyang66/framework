@@ -1,6 +1,8 @@
 
 package shiro;
 
+import java.util.Arrays;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -56,7 +58,7 @@ public class MyRealm implements Realm{
 	public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token)
 			throws AuthenticationException {
 		String username = (String)token.getPrincipal();//用户名（认证）
-		String password = (String)token.getCredentials();//用户密码（凭证）
+		String password = new String((char[])token.getCredentials());//用户密码（凭证）
 		
 		if(!username.equals("zhang")){
 			throw new UnknownAccountException();

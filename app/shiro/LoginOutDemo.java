@@ -32,6 +32,7 @@ public class LoginOutDemo {
 		Subject subject = SecurityUtils.getSubject();
 		//创建用户名密码身份验证token(即：用户身份/凭证)
 		UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");
+		token.setRememberMe(true);
 		try{
 			//登录，即身份验证
 			subject.login(token);
