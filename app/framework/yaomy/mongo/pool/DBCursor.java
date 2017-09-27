@@ -24,7 +24,7 @@ public class DBCursor {
 	private Bson filter;
 	private FindIterable<Document> it;
 	private MongoCursor<Document> mc;
-	DBCursor(MongoCollection<Document> collection, Bson filter, FindIterable<Document> it) {
+	public DBCursor(MongoCollection<Document> collection, Bson filter, FindIterable<Document> it) {
 		this.collection = collection;
 		this.filter = filter;
 		this.it = it;
@@ -61,9 +61,6 @@ public class DBCursor {
 	 * @date 2017年8月20日 下午6:55:01
 	 */
 	public Document next(){
-		if(this.mc == null){
-			this.mc = this.it.iterator();
-		}
 		return this.mc.next();
 	}
 	/**
@@ -73,9 +70,6 @@ public class DBCursor {
 	 * @date 2017年8月20日 下午6:49:54
 	 */
 	public Document tryNext(){
-		if(this.mc == null) {
-			this.mc = this.it.iterator();
-		}
 		return this.mc.tryNext();
 	}
 	/**
@@ -89,8 +83,8 @@ public class DBCursor {
 			this.mc.close();
 			this.mc = null;
 		}
+		this.filter = null;
 		this.collection = null;
-		this.it = null;
 	}
 	/**
 	 * 
@@ -116,6 +110,9 @@ public class DBCursor {
 		}
 		return this.mc.getServerAddress();
 	}
+	/**
+	 * 将查询对象转换成字符串
+	 */
 	public String toString(){
 		return this.it.toString();
 	}

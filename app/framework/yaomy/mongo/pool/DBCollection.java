@@ -45,16 +45,16 @@ public class DBCollection{
 
 	 private MongoDatabase db;
 	 private MongoCollection<Document> collection = null;
-	 private String collectionName = null;
+	 private boolean shard = Boolean.FALSE;
 	 
-	 DBCollection(MongoDatabase db, MongoCollection<Document> collection, String collectionName) {
+	 public DBCollection(MongoDatabase db, MongoCollection<Document> collection, boolean shard) {
 		 this.db = db;
 		 this.collection = collection;
-		 this.collectionName = collectionName;
+		 this.shard = shard;
 	 }
 
 	public MongoDatabase getDb() {
-		return db;
+		return this.db;
 	}
 
 	public void setDb(MongoDatabase db) {
@@ -70,11 +70,10 @@ public class DBCollection{
 	}
 
 	public String getCollectionName() {
-		return collectionName;
+		return this.collection.getNamespace().getCollectionName();
 	}
-
-	public void setCollectionName(String collectionName) {
-		this.collectionName = collectionName;
+	public boolean isShard() {
+		return shard;
 	}
 
 	/**
@@ -180,7 +179,12 @@ public class DBCollection{
 	 */
 	public Document findOne(Document query) {
 		DBCursor cursor = find(query);
-		return cursor.tryNext();
+		Document doc = null;
+		if(cursor.hasNext()){
+			doc = cursor.next();
+		}
+		cursor.close();
+		return doc;
 	}
 	/**
 	 * 查找指定的一个文档
@@ -190,7 +194,12 @@ public class DBCollection{
 	 */
 	public Document findOne(Document query, Document keys){
 		DBCursor cursor = find(query, keys);
-		return cursor.tryNext();
+		Document doc = null;
+		if(cursor.hasNext()){
+			doc = cursor.next();
+		}
+		cursor.close();
+		return doc;
 	}
 	/**
 	 * 

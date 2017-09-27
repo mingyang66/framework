@@ -3,7 +3,11 @@ package framework.yaomy.mongo.pool;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 
 import framework.yaomy.config.GGConfigurer;
 import framework.yaomy.log.GGLogger;
@@ -20,13 +24,21 @@ import framework.yaomy.log.GGLogger;
 public class GGMongoOperator {
 
 	/**
+	 * 获取指定数据库对应的客户端对象
+	 * @param dbName
+	 * @return
+	 */
+	private static MongoClient getClient(String dbName) {
+		return GGMongoClientPool.pool.getMongoClient(dbName);
+	}
+	/**
 	 * 
 	 * @Description:获取指定数据库的数据库对象
 	 * @author yaomy
 	 * @date 2017年8月17日 下午8:01:49
 	 */
 	public static MongoDatabase getDB(String dbName){
-		MongoClient client = GGMongoClientPool.pool.getMongoClient(dbName);
+		MongoClient client = getClient(dbName);
 		if(GGConfigurer.get("ggmongodb."+dbName+".name") != null){
 			return client.getDatabase(GGConfigurer.get("ggmongodb."+dbName+".name"));
 		}
@@ -47,7 +59,7 @@ public class GGMongoOperator {
 		}
 		DBCollection collection = null;
 		try{
-			collection = new DBCollection(db, db.getCollection(collectionName), collectionName);
+			collection = new DBCollection(db, db.getCollection(collectionName), isShard(db, collectionName));
 			return collection;
 		}catch(RuntimeException e){
 			GGLogger.error("获取"+collectionName+"的集合异常！"+e);
@@ -142,5 +154,16 @@ public class GGMongoOperator {
 		}
 		cursor.close();
 		return result;
+	}
+	private static boolean isShard(MongoDatabase db, String dbCollection) {
+		MongoCollection col = db.getCollection("sys_shard_table");
+		FindIterable fi = col.find(Filters.eq("_id", dbCollection));
+		MongoCursor cursor = fi.iterator();
+		boolean isShard = false;
+		if (cursor.hasNext()) {
+			isShard = true;
+		}
+		cursor.close();
+		return isShard;
 	}
 }

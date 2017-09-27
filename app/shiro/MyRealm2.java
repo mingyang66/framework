@@ -1,8 +1,6 @@
 
 package shiro;
 
-import java.util.Arrays;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

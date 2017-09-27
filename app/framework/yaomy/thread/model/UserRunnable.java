@@ -1,6 +1,5 @@
 package framework.yaomy.thread.model;
 
-import framework.yaomy.thread.model.Counter;
 
 /**
  * @Description:TODO
